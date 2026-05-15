@@ -43,14 +43,19 @@ Video File: ไฟล์ .webm ที่ export
 
 ## GitHub Pages
 
-ใช้ path แบบ relative ทั้งหมด จึงสามารถอัปเป็น subfolder ได้ เช่น:
+โปรเจกต์นี้เป็นเว็บแยกของตัวเอง ไม่ผูกกับ `PepsLive_Tournament_Studio`
+
+ตั้งค่า GitHub Pages:
 
 ```text
-https://pepsproduction.github.io/PepsLive_Tournament_Studio/pepslive-stinger-studio/
+Settings > Pages > Build and deployment
+Source: Deploy from a branch
+Branch: main
+Folder: /root
 ```
 
-หรือแยกเป็น repo ใหม่ชื่อ:
+หลังเปิด Pages แล้ว URL จะเป็น:
 
 ```text
-pepslive-stinger-studio
+https://pepsproduction.github.io/pepslive-stinger-studio/
 ```
