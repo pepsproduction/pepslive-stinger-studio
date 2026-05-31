@@ -332,6 +332,8 @@
   const logoCtx = logoLayer.getContext("2d", { alpha: true });
   const logoProcessCanvas = document.createElement("canvas");
   const logoProcessCtx = logoProcessCanvas.getContext("2d", { willReadFrequently: true });
+  const grainCanvas = document.createElement("canvas");
+  const grainCtx = grainCanvas.getContext("2d", { alpha: true });
 
   let sourceImage = new Image();
   let processedLogo = null;
@@ -345,6 +347,7 @@
   let lastAutosave = 0;
   let lastReadoutUpdate = 0;
   let lastExportStatus = 0;
+  let grainFrame = -1;
 
   const controls = [
     "duration", "transitionPoint", "fps", "resolution", "previewQuality", "logoSize", "logoX", "logoY", "logoRotate",
@@ -535,6 +538,7 @@
     logoLayer.width = targetWidth;
     logoLayer.height = targetHeight;
     particles = buildParticles();
+    grainFrame = -1;
   }
 
   function buildParticles() {
@@ -864,19 +868,33 @@
   function drawFilmGrain(w, h, timeline) {
     if (!state.enableFilmGrain || isRecording) return;
     const alpha = clamp(0.018 + (state.realism / 100) * 0.028, 0, 0.05);
-    const step = state.previewQuality === "full" ? 5 : 7;
-    const phase = Math.floor(timeline.t * 180);
+    const grainW = state.previewQuality === "full" ? 220 : 160;
+    const grainH = Math.round(grainW * h / w);
+    const frame = Math.floor(timeline.t * 32);
+
+    if (grainCanvas.width !== grainW || grainCanvas.height !== grainH || grainFrame !== frame) {
+      grainCanvas.width = grainW;
+      grainCanvas.height = grainH;
+      const imageData = grainCtx.createImageData(grainW, grainH);
+      const data = imageData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const n = seeded(i + frame * 101);
+        const value = n > 0.5 ? 255 : 0;
+        data[i] = value;
+        data[i + 1] = value;
+        data[i + 2] = value;
+        data[i + 3] = Math.round((0.16 + Math.abs(n - 0.5) * 0.58) * 255);
+      }
+      grainCtx.putImageData(imageData, 0, 0);
+      grainFrame = frame;
+    }
 
     ctx.save();
     ctx.globalCompositeOperation = "overlay";
-    for (let y = 0; y < h; y += step) {
-      for (let x = 0; x < w; x += step) {
-        const n = seeded((x + 1) * 13 + (y + 1) * 17 + phase);
-        if (n < 0.58) continue;
-        ctx.fillStyle = n > 0.79 ? rgba(state.glowColor, alpha) : `rgba(0,0,0,${alpha * 0.68})`;
-        ctx.fillRect(x, y, step, step);
-      }
-    }
+    ctx.globalAlpha = alpha;
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(grainCanvas, 0, 0, w, h);
+    ctx.imageSmoothingEnabled = true;
     ctx.restore();
   }
 
@@ -1514,6 +1532,9 @@
       sourceImage = image;
       processLogo();
       sampleLogoPalette();
+      if (!isPlaying && !isRecording) {
+        drawFrame(state.transitionPoint, true);
+      }
       flashStatus("โหลดโลโก้สำเร็จ");
     };
     image.onerror = () => {
