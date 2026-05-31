@@ -3,7 +3,15 @@
 
   const $ = (id) => document.getElementById(id);
   const storageKey = "pepslive-stinger-studio-v1";
-  const logoPath = "assets/img/pepsproduction-logo.png";
+  const assetVersion = "20260531";
+  const logoFallbackPaths = [
+    `assets/img/pepsproduction-logo.png?v=${assetVersion}`,
+    `assets/img/LOGO3.png?v=${assetVersion}`,
+    `assets/img/logo.png?v=${assetVersion}`,
+    `LOGO3.png?v=${assetVersion}`,
+    `logo.png?v=${assetVersion}`
+  ];
+  const logoPath = logoFallbackPaths[0];
 
   const fullFx = {
     enablePanels: true,
@@ -16,6 +24,9 @@
     enableGlowMist: true,
     enableEnergyRing: true,
     enableChromatic: true,
+    enableAtmosphere: true,
+    enableLightWrap: true,
+    enableFilmGrain: true,
     enableShutter: true,
     enableVignette: true,
     enableCameraShake: true,
@@ -279,6 +290,7 @@
     bitrate: 50000000,
     previewQuality: "smooth",
     previewLoop: false,
+    logoDataUrl: "",
     logoSize: 42,
     logoX: 50,
     logoY: 50,
@@ -294,6 +306,9 @@
     enableGlowMist: true,
     enableEnergyRing: true,
     enableChromatic: true,
+    enableAtmosphere: true,
+    enableLightWrap: true,
+    enableFilmGrain: true,
     enableShutter: true,
     enableVignette: true,
     enableCameraShake: true,
@@ -335,7 +350,8 @@
     "duration", "transitionPoint", "fps", "resolution", "previewQuality", "logoSize", "logoX", "logoY", "logoRotate",
     "whiteMatte", "enablePanels", "enableSweep", "enableParticles", "enableShockwave", "enableBars",
     "enableLightRays", "enableLensFlare", "enableGlowMist", "enableEnergyRing", "enableChromatic",
-    "enableShutter", "enableVignette", "enableCameraShake", "enableMotionBlur", "enableLabel",
+    "enableAtmosphere", "enableLightWrap", "enableFilmGrain", "enableShutter", "enableVignette",
+    "enableCameraShake", "enableMotionBlur", "enableLabel",
     "intensity", "realism", "sweepAngle", "easing", "stingerLabel", "primaryColor",
     "secondaryColor", "glowColor", "accentColor", "previewBg", "bitrate"
   ];
@@ -793,6 +809,77 @@
     ctx.restore();
   }
 
+  function drawAtmosphere(w, h, timeline) {
+    if (!state.enableAtmosphere) return;
+    const panel = getPanelProgress(timeline);
+    const alpha = clamp((0.08 + panel * 0.2) * (state.realism / 100), 0, 0.28);
+    if (alpha <= 0.01) return;
+
+    const count = Math.max(16, Math.round(34 * effectQuality()));
+    const drift = timeline.t * Math.PI * 2;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < count; i += 1) {
+      const baseX = seeded(i + 211);
+      const baseY = seeded(i + 217);
+      const x = ((baseX + timeline.t * lerp(0.01, 0.05, seeded(i + 223))) % 1) * w;
+      const y = (baseY + Math.sin(drift + i) * 0.018) * h;
+      const r = Math.min(w, h) * lerp(0.003, 0.011, seeded(i + 229));
+      const localAlpha = alpha * lerp(0.14, 0.58, seeded(i + 233));
+      const grad = ctx.createRadialGradient(x, y, 0, x, y, r * 8);
+      grad.addColorStop(0, rgba(i % 3 ? state.glowColor : state.accentColor, localAlpha));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(x, y, r * 8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawLightWrap(w, h, timeline) {
+    if (!state.enableLightWrap || !processedLogo) return;
+    const panel = getPanelProgress(timeline);
+    const alpha = clamp((0.1 + panel * 0.22) * (state.realism / 100), 0, 0.34);
+    if (alpha <= 0.01) return;
+
+    const cx = w * (state.logoX / 100);
+    const cy = h * (state.logoY / 100);
+    const radius = Math.min(w, h) * (state.logoSize / 100) * lerp(0.56, 0.86, state.realism / 100);
+    const grad = ctx.createRadialGradient(cx, cy, radius * 0.38, cx, cy, radius * 1.34);
+    grad.addColorStop(0, rgba(state.glowColor, 0));
+    grad.addColorStop(0.52, rgba(state.primaryColor, alpha * 0.32));
+    grad.addColorStop(0.78, rgba(state.glowColor, alpha));
+    grad.addColorStop(1, "rgba(255,255,255,0)");
+
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius * 1.34, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawFilmGrain(w, h, timeline) {
+    if (!state.enableFilmGrain || isRecording) return;
+    const alpha = clamp(0.018 + (state.realism / 100) * 0.028, 0, 0.05);
+    const step = state.previewQuality === "full" ? 5 : 7;
+    const phase = Math.floor(timeline.t * 180);
+
+    ctx.save();
+    ctx.globalCompositeOperation = "overlay";
+    for (let y = 0; y < h; y += step) {
+      for (let x = 0; x < w; x += step) {
+        const n = seeded((x + 1) * 13 + (y + 1) * 17 + phase);
+        if (n < 0.58) continue;
+        ctx.fillStyle = n > 0.79 ? rgba(state.glowColor, alpha) : `rgba(0,0,0,${alpha * 0.68})`;
+        ctx.fillRect(x, y, step, step);
+      }
+    }
+    ctx.restore();
+  }
+
   function drawShutterWipe(w, h, timeline) {
     if (!state.enableShutter) return;
     const p = getPanelProgress(timeline);
@@ -1113,6 +1200,7 @@
     const shake = getCameraShake(timeline, w, h);
     ctx.save();
     ctx.translate(shake.x, shake.y);
+    drawAtmosphere(w, h, timeline);
     drawVolumetricRays(w, h, timeline);
     drawGlowMist(w, h, timeline);
     drawPanels(w, h, timeline);
@@ -1123,9 +1211,11 @@
     drawParticles(w, h, timeline);
     drawLogoToLayer(w, h, timeline);
     ctx.drawImage(logoLayer, 0, 0);
+    drawLightWrap(w, h, timeline);
     drawLensFlare(w, h, timeline);
     drawTitleBadge(w, h, timeline);
     drawVignette(w, h, timeline);
+    drawFilmGrain(w, h, timeline);
     ctx.restore();
     drawPreviewBackgroundGuide(w, h);
     updateReadouts(forceReadout);
@@ -1344,8 +1434,13 @@
     const now = Date.now();
     if (now - lastAutosave < 180) return;
     lastAutosave = now;
-    localStorage.setItem(storageKey, JSON.stringify(getProjectJson()));
-    $("autosaveStatus").textContent = "Auto Save แล้ว";
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(getProjectJson()));
+      $("autosaveStatus").textContent = "Auto Save แล้ว";
+    } catch (error) {
+      console.warn("Autosave failed", error);
+      $("autosaveStatus").textContent = "Auto Save เต็ม: ลดขนาดโลโก้";
+    }
   }
 
   function loadAutosave() {
@@ -1400,23 +1495,59 @@
   function loadLogoFile(file) {
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => loadLogo(String(reader.result));
+    reader.onload = () => {
+      state.logoDataUrl = String(reader.result);
+      loadLogo(state.logoDataUrl);
+      autosave();
+    };
     reader.readAsDataURL(file);
   }
 
   function loadLogo(src) {
+    if (!src) {
+      loadLogo(logoPath);
+      return;
+    }
     const image = new Image();
+    image.decoding = "async";
     image.onload = () => {
       sourceImage = image;
       processLogo();
       sampleLogoPalette();
-      flashStatus("โหลดโลโก้แล้ว");
+      flashStatus("โหลดโลโก้สำเร็จ");
+    };
+    image.onerror = () => {
+      const currentFallbackIndex = logoFallbackPaths.indexOf(src);
+      const nextFallback = currentFallbackIndex >= 0 ? logoFallbackPaths[currentFallbackIndex + 1] : "";
+      if (nextFallback) {
+        loadLogo(nextFallback);
+        return;
+      }
+      state.logoDataUrl = "";
+      processedLogo = null;
+      drawFrame(currentTime, true);
+      flashStatus("โหลดโลโก้ไม่สำเร็จ ตรวจ path ไฟล์ใน assets/img");
     };
     image.src = src;
   }
 
   function resetLogo() {
+    state.logoDataUrl = "";
     loadLogo(logoPath);
+    autosave();
+  }
+
+  function initBrandLogo() {
+    const brandLogo = $("brandLogo");
+    if (!brandLogo) return;
+    let index = 0;
+    brandLogo.onerror = () => {
+      index += 1;
+      if (index < logoFallbackPaths.length) {
+        brandLogo.src = logoFallbackPaths[index];
+      }
+    };
+    brandLogo.src = logoPath;
   }
 
   function dateStamp() {
@@ -1632,9 +1763,10 @@
   function init() {
     buildPresetGrid();
     loadAutosave();
+    initBrandLogo();
     syncControls();
     bindEvents();
-    resetLogo();
+    loadLogo(state.logoDataUrl || logoPath);
     drawFrame(0);
   }
 
