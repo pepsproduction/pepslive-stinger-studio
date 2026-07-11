@@ -95,7 +95,7 @@
               <output id="durationValue">2400ms</output>
             </label>
             <label>จุดตัด OBS
-              <input id="transitionPoint" type="range" min="400" max="2400" step="50" value="1000" />
+              <input id="transitionPoint" type="range" min="400" max="2400" step="10" value="1000" />
               <output id="transitionPointValue">1000ms</output>
             </label>
             <label>FPS
@@ -132,9 +132,20 @@
           <div class="toggle-grid">
             <label><input id="enablePanels" type="checkbox" checked /> Curtain Panels</label>
             <label><input id="enableSweep" type="checkbox" checked /> Alpha Sweep</label>
-            <label><input id="enableParticles" type="checkbox" checked /> Particles</label>
+            <label><input id="enableFluidMatte" type="checkbox" checked /> Fluid Matte</label>
+            <label><input id="enableRibbons" type="checkbox" checked /> Soft Ribbons</label>
+            <label><input id="enableDepth3D" type="checkbox" /> Depth 3D</label>
+            <label><input id="enableOrbitCamera" type="checkbox" /> Orbit Camera</label>
+            <label><input id="enableLightning" type="checkbox" checked /> Lightning</label>
+            <label><input id="enableEmbers" type="checkbox" checked /> Ember Sparks</label>
+            <label><input id="enableLiquidWave" type="checkbox" checked /> Liquid Wave</label>
+            <label><input id="enablePrismShards" type="checkbox" checked /> Prism Shards</label>
+            <label><input id="enableCineZoom" type="checkbox" /> Cine Zoom</label>
+            <label><input id="enableRgbSplit" type="checkbox" /> RGB Split</label>
+            <label><input id="enableGlitchFlash" type="checkbox" /> Glitch Flash</label>
+            <label><input id="enableDisplacementPulse" type="checkbox" /> Displacement Pulse</label>
+            <label><input id="enableShatterTiles" type="checkbox" /> Shatter Tiles</label>
             <label><input id="enableShockwave" type="checkbox" checked /> Shockwave</label>
-            <label><input id="enableBars" type="checkbox" checked /> Split Bars</label>
             <label><input id="enableLightRays" type="checkbox" checked /> Light Rays</label>
             <label><input id="enableLensFlare" type="checkbox" checked /> Lens Flare</label>
             <label><input id="enableGlowMist" type="checkbox" checked /> Glow Mist</label>
@@ -142,12 +153,11 @@
             <label><input id="enableChromatic" type="checkbox" checked /> Chromatic Edge</label>
             <label><input id="enableAtmosphere" type="checkbox" checked /> Atmosphere</label>
             <label><input id="enableLightWrap" type="checkbox" checked /> Light Wrap</label>
+            <label><input id="enableLogoBloom" type="checkbox" checked /> Logo Bloom</label>
             <label><input id="enableFilmGrain" type="checkbox" checked /> Film Grain</label>
-            <label><input id="enableShutter" type="checkbox" checked /> Shutter Wipe</label>
             <label><input id="enableVignette" type="checkbox" checked /> Vignette</label>
             <label><input id="enableCameraShake" type="checkbox" checked /> Camera Shake</label>
             <label><input id="enableMotionBlur" type="checkbox" checked /> Motion Blur</label>
-            <label><input id="enableLabel" type="checkbox" checked /> Title Badge</label>
           </div>
           <div class="field-grid two">
             <label>ความแรง
@@ -196,6 +206,12 @@
                 <option value="dark">Dark Scene</option>
                 <option value="bright">Bright Scene</option>
                 <option value="court">Sport Court</option>
+              </select>
+            </label>
+            <label>Export Mode
+              <select id="exportMode">
+                <option value="standard" selected>Standard WebM</option>
+                <option value="track-matte">OBS Track Matte</option>
               </select>
             </label>
             <label>Bitrate

@@ -16,9 +16,22 @@
   const fullFx = {
     enablePanels: true,
     enableSweep: true,
-    enableParticles: true,
+    enableParticles: false,
+    enableFluidMatte: true,
+    enableRibbons: true,
+    enableDepth3D: false,
+    enableOrbitCamera: false,
+    enableLightning: true,
+    enableEmbers: true,
+    enableLiquidWave: true,
+    enablePrismShards: true,
+    enableCineZoom: false,
+    enableRgbSplit: false,
+    enableGlitchFlash: false,
+    enableDisplacementPulse: false,
+    enableShatterTiles: false,
     enableShockwave: true,
-    enableBars: true,
+    enableBars: false,
     enableLightRays: true,
     enableLensFlare: true,
     enableGlowMist: true,
@@ -26,13 +39,38 @@
     enableChromatic: true,
     enableAtmosphere: true,
     enableLightWrap: true,
+    enableLogoBloom: true,
     enableFilmGrain: true,
-    enableShutter: true,
+    enableShutter: false,
     enableVignette: true,
     enableCameraShake: true,
     enableMotionBlur: true,
-    enableLabel: true
+    enableLabel: false
   };
+
+  const curatedPresetKeys = [
+    "peps-impact",
+    "glass-arena",
+    "light-tunnel",
+    "broadcast-wipe",
+    "stadium-lights",
+    "replay-impact",
+    "premium-glass",
+    "final-whistle",
+    "silk-matte",
+    "studio-bloom",
+    "orbit-depth",
+    "holo-cube",
+    "storm-reactor",
+    "pyro-forge",
+    "tidal-forge",
+    "prism-rift",
+    "maelstrom-core",
+    "velocity-ramp",
+    "rgb-glitch-pro",
+    "aether-shatter",
+    "liquid-glass-zoom"
+  ];
 
   const presets = {
     "peps-impact": {
@@ -277,6 +315,321 @@
       realism: 64,
       sweepAngle: 300,
       easing: "snappy"
+    },
+    "silk-matte": {
+      ...fullFx,
+      name: "Silk Matte",
+      category: "Premium",
+      note: "Soft fluid reveal, broad matte coverage, minimal hard lines",
+      primaryColor: "#ff6f1a",
+      secondaryColor: "#070707",
+      glowColor: "#fff7eb",
+      accentColor: "#ffb36a",
+      duration: 3200,
+      transitionPoint: 1280,
+      intensity: 54,
+      realism: 94,
+      sweepAngle: 24,
+      easing: "smooth",
+      enableShockwave: false,
+      enableBars: false,
+      enableShutter: false,
+      enableCameraShake: false
+    },
+    "studio-bloom": {
+      ...fullFx,
+      name: "Studio Bloom",
+      category: "Broadcast",
+      note: "Clean broadcast bloom with soft ribbons and logo-centered light",
+      primaryColor: "#ff5a00",
+      secondaryColor: "#0a0a0a",
+      glowColor: "#ffffff",
+      accentColor: "#ffc066",
+      duration: 2600,
+      transitionPoint: 1040,
+      intensity: 62,
+      realism: 90,
+      sweepAngle: 338,
+      easing: "cinematic",
+      enableShockwave: false,
+      enableParticles: false,
+      enableCameraShake: false
+    },
+    "orbit-depth": {
+      ...fullFx,
+      name: "Orbit Depth",
+      category: "3D",
+      note: "3D camera orbit, deep panels, premium sports opener",
+      primaryColor: "#ff5a00",
+      secondaryColor: "#050505",
+      glowColor: "#fff4e6",
+      accentColor: "#35d7ff",
+      duration: 3000,
+      transitionPoint: 1180,
+      intensity: 76,
+      realism: 92,
+      sweepAngle: 18,
+      easing: "cinematic",
+      enableDepth3D: true,
+      enableOrbitCamera: true,
+      enableBars: false,
+      enableShutter: false
+    },
+    "holo-cube": {
+      ...fullFx,
+      name: "Holo Cube",
+      category: "3D",
+      note: "Holographic cube tunnel with softer matte reveal",
+      primaryColor: "#ff6b00",
+      secondaryColor: "#041018",
+      glowColor: "#72f4ff",
+      accentColor: "#ffe66d",
+      duration: 2800,
+      transitionPoint: 1120,
+      intensity: 86,
+      realism: 84,
+      sweepAngle: 334,
+      easing: "smooth",
+      enableDepth3D: true,
+      enableOrbitCamera: true,
+      enableShockwave: false,
+      enableCameraShake: false,
+      enableLabel: false
+    },
+    "storm-reactor": {
+      ...fullFx,
+      name: "Storm Reactor",
+      category: "Lightning",
+      note: "Volumetric lightning core, electric reveal, heavy broadcast energy",
+      primaryColor: "#ff6500",
+      secondaryColor: "#05070a",
+      glowColor: "#9ff6ff",
+      accentColor: "#ffdf64",
+      duration: 2700,
+      transitionPoint: 1080,
+      intensity: 92,
+      realism: 92,
+      sweepAngle: 18,
+      easing: "cinematic",
+      enableDepth3D: true,
+      enableOrbitCamera: true,
+      enableLightning: true,
+      enableEmbers: true,
+      enableLiquidWave: false,
+      enablePrismShards: true,
+      enableShockwave: true,
+      enableCameraShake: true
+    },
+    "pyro-forge": {
+      ...fullFx,
+      name: "Pyro Forge",
+      category: "Fire",
+      note: "Hot ember field, molten bloom, premium combat-sport impact",
+      primaryColor: "#ff4b00",
+      secondaryColor: "#080302",
+      glowColor: "#fff1c4",
+      accentColor: "#ffb000",
+      duration: 2500,
+      transitionPoint: 980,
+      intensity: 96,
+      realism: 86,
+      sweepAngle: 28,
+      easing: "snappy",
+      enableDepth3D: true,
+      enableOrbitCamera: false,
+      enableLightning: false,
+      enableEmbers: true,
+      enableLiquidWave: false,
+      enablePrismShards: true,
+      enableCameraShake: true
+    },
+    "tidal-forge": {
+      ...fullFx,
+      name: "Tidal Forge",
+      category: "Water",
+      note: "Liquid caustics, wave matte, clean premium aquatic reveal",
+      primaryColor: "#00a9ff",
+      secondaryColor: "#02131a",
+      glowColor: "#d8fbff",
+      accentColor: "#ff7a1a",
+      duration: 3300,
+      transitionPoint: 1320,
+      intensity: 64,
+      realism: 98,
+      sweepAngle: 338,
+      easing: "smooth",
+      enableDepth3D: true,
+      enableOrbitCamera: false,
+      enableLightning: false,
+      enableEmbers: false,
+      enableLiquidWave: true,
+      enablePrismShards: true,
+      enableShockwave: false,
+      enableCameraShake: false
+    },
+    "prism-rift": {
+      ...fullFx,
+      name: "Prism Rift",
+      category: "3D",
+      note: "Faceted glass depth, chromatic prism burst, clean elite opener",
+      primaryColor: "#ff5a00",
+      secondaryColor: "#030307",
+      glowColor: "#f9fbff",
+      accentColor: "#65e8ff",
+      duration: 2900,
+      transitionPoint: 1160,
+      intensity: 78,
+      realism: 94,
+      sweepAngle: 306,
+      easing: "cinematic",
+      enableDepth3D: true,
+      enableOrbitCamera: true,
+      enableLightning: false,
+      enableEmbers: false,
+      enableLiquidWave: false,
+      enablePrismShards: true,
+      enableShockwave: false,
+      enableCameraShake: false
+    },
+    "maelstrom-core": {
+      ...fullFx,
+      name: "Maelstrom Core",
+      category: "Storm",
+      note: "Water surge, electric arcs, deep cinematic scene takeover",
+      primaryColor: "#0fc7ff",
+      secondaryColor: "#02070c",
+      glowColor: "#ffffff",
+      accentColor: "#ff7a1a",
+      duration: 3100,
+      transitionPoint: 1240,
+      intensity: 88,
+      realism: 96,
+      sweepAngle: 24,
+      easing: "cinematic",
+      enableDepth3D: true,
+      enableOrbitCamera: true,
+      enableLightning: true,
+      enableEmbers: false,
+      enableLiquidWave: true,
+      enablePrismShards: true,
+      enableShockwave: true,
+      enableCameraShake: true
+    },
+    "velocity-ramp": {
+      ...fullFx,
+      name: "Velocity Ramp",
+      category: "Speed",
+      note: "CapCut-style fast zoom ramp with polished motion blur and logo echoes",
+      primaryColor: "#ff5a00",
+      secondaryColor: "#050505",
+      glowColor: "#ffffff",
+      accentColor: "#35d7ff",
+      duration: 2100,
+      transitionPoint: 840,
+      intensity: 86,
+      realism: 88,
+      sweepAngle: 18,
+      easing: "snappy",
+      enableDepth3D: true,
+      enableOrbitCamera: false,
+      enableLightning: false,
+      enableEmbers: false,
+      enableLiquidWave: false,
+      enablePrismShards: true,
+      enableCineZoom: true,
+      enableRgbSplit: true,
+      enableGlitchFlash: false,
+      enableDisplacementPulse: true,
+      enableShatterTiles: false,
+      enableShockwave: true,
+      enableCameraShake: true
+    },
+    "rgb-glitch-pro": {
+      ...fullFx,
+      name: "RGB Glitch Pro",
+      category: "Glitch",
+      note: "High-end RGB split, scan displacement, glow flash, no cheap hard bars",
+      primaryColor: "#ff4a00",
+      secondaryColor: "#030307",
+      glowColor: "#bff8ff",
+      accentColor: "#ff2bc2",
+      duration: 2300,
+      transitionPoint: 920,
+      intensity: 88,
+      realism: 80,
+      sweepAngle: 344,
+      easing: "snappy",
+      enableDepth3D: true,
+      enableOrbitCamera: true,
+      enableLightning: false,
+      enableEmbers: false,
+      enableLiquidWave: false,
+      enablePrismShards: true,
+      enableCineZoom: true,
+      enableRgbSplit: true,
+      enableGlitchFlash: true,
+      enableDisplacementPulse: true,
+      enableShatterTiles: false,
+      enableShockwave: false,
+      enableCameraShake: true
+    },
+    "aether-shatter": {
+      ...fullFx,
+      name: "Aether Shatter",
+      category: "Shatter",
+      note: "After Effects-inspired shatter tiles, prism depth, premium impact",
+      primaryColor: "#ff6a00",
+      secondaryColor: "#03030a",
+      glowColor: "#f7fbff",
+      accentColor: "#66e7ff",
+      duration: 2700,
+      transitionPoint: 1080,
+      intensity: 82,
+      realism: 92,
+      sweepAngle: 302,
+      easing: "cinematic",
+      enableDepth3D: true,
+      enableOrbitCamera: true,
+      enableLightning: false,
+      enableEmbers: false,
+      enableLiquidWave: false,
+      enablePrismShards: true,
+      enableCineZoom: false,
+      enableRgbSplit: true,
+      enableGlitchFlash: false,
+      enableDisplacementPulse: true,
+      enableShatterTiles: true,
+      enableShockwave: true,
+      enableCameraShake: false
+    },
+    "liquid-glass-zoom": {
+      ...fullFx,
+      name: "Liquid Glass Zoom",
+      category: "Liquid",
+      note: "Smooth template-style glass warp, displacement pulse, soft zoom bloom",
+      primaryColor: "#18c9ff",
+      secondaryColor: "#021118",
+      glowColor: "#ffffff",
+      accentColor: "#ff7a1a",
+      duration: 3000,
+      transitionPoint: 1200,
+      intensity: 68,
+      realism: 98,
+      sweepAngle: 28,
+      easing: "smooth",
+      enableDepth3D: true,
+      enableOrbitCamera: false,
+      enableLightning: false,
+      enableEmbers: false,
+      enableLiquidWave: true,
+      enablePrismShards: true,
+      enableCineZoom: true,
+      enableRgbSplit: false,
+      enableGlitchFlash: false,
+      enableDisplacementPulse: true,
+      enableShatterTiles: false,
+      enableShockwave: false,
+      enableCameraShake: false
     }
   };
 
@@ -288,6 +641,7 @@
     width: 1920,
     height: 1080,
     bitrate: 50000000,
+    exportMode: "standard",
     previewQuality: "smooth",
     previewLoop: false,
     logoDataUrl: "",
@@ -298,9 +652,22 @@
     whiteMatte: true,
     enablePanels: true,
     enableSweep: true,
-    enableParticles: true,
+    enableParticles: false,
+    enableFluidMatte: true,
+    enableRibbons: true,
+    enableDepth3D: false,
+    enableOrbitCamera: false,
+    enableLightning: true,
+    enableEmbers: true,
+    enableLiquidWave: true,
+    enablePrismShards: true,
+    enableCineZoom: false,
+    enableRgbSplit: false,
+    enableGlitchFlash: false,
+    enableDisplacementPulse: false,
+    enableShatterTiles: false,
     enableShockwave: true,
-    enableBars: true,
+    enableBars: false,
     enableLightRays: true,
     enableLensFlare: true,
     enableGlowMist: true,
@@ -308,12 +675,13 @@
     enableChromatic: true,
     enableAtmosphere: true,
     enableLightWrap: true,
+    enableLogoBloom: true,
     enableFilmGrain: true,
-    enableShutter: true,
+    enableShutter: false,
     enableVignette: true,
     enableCameraShake: true,
     enableMotionBlur: true,
-    enableLabel: true,
+    enableLabel: false,
     intensity: 72,
     realism: 68,
     sweepAngle: 22,
@@ -334,6 +702,8 @@
   const logoProcessCtx = logoProcessCanvas.getContext("2d", { willReadFrequently: true });
   const grainCanvas = document.createElement("canvas");
   const grainCtx = grainCanvas.getContext("2d", { alpha: true });
+  const trackMatteCanvas = document.createElement("canvas");
+  const trackMatteCtx = trackMatteCanvas.getContext("2d", { alpha: false });
 
   let sourceImage = new Image();
   let processedLogo = null;
@@ -351,12 +721,14 @@
 
   const controls = [
     "duration", "transitionPoint", "fps", "resolution", "previewQuality", "logoSize", "logoX", "logoY", "logoRotate",
-    "whiteMatte", "enablePanels", "enableSweep", "enableParticles", "enableShockwave", "enableBars",
+    "whiteMatte", "enablePanels", "enableSweep", "enableFluidMatte", "enableRibbons", "enableDepth3D", "enableOrbitCamera",
+    "enableLightning", "enableEmbers", "enableLiquidWave", "enablePrismShards",
+    "enableCineZoom", "enableRgbSplit", "enableGlitchFlash", "enableDisplacementPulse", "enableShatterTiles", "enableShockwave",
     "enableLightRays", "enableLensFlare", "enableGlowMist", "enableEnergyRing", "enableChromatic",
-    "enableAtmosphere", "enableLightWrap", "enableFilmGrain", "enableShutter", "enableVignette",
-    "enableCameraShake", "enableMotionBlur", "enableLabel",
+    "enableAtmosphere", "enableLightWrap", "enableLogoBloom", "enableFilmGrain", "enableVignette",
+    "enableCameraShake", "enableMotionBlur",
     "intensity", "realism", "sweepAngle", "easing", "stingerLabel", "primaryColor",
-    "secondaryColor", "glowColor", "accentColor", "previewBg", "bitrate"
+    "secondaryColor", "glowColor", "accentColor", "previewBg", "exportMode", "bitrate"
   ];
 
   const helpContent = {
@@ -408,13 +780,13 @@
       body: `
         <h3>แนวทางเปิด FX</h3>
         <ul>
-          <li>Curtain Panels และ Shutter Wipe ช่วยปิดจอให้แน่น เหมาะกับ transition จริง</li>
+          <li>Fluid Matte, Depth 3D และ Liquid Wave ช่วยปิดจอให้แน่นแบบมีมิติ เหมาะกับ transition จริง</li>
           <li>Light Rays, Lens Flare และ Glow Mist เพิ่มความสมจริงแบบกล้องถ่ายไฟสนาม</li>
           <li>Energy Ring, Shockwave และ Camera Shake เพิ่มแรงปะทะ ใช้กับ replay หรือเปิดตัวคู่ใหญ่</li>
           <li>Chromatic Edge และ Motion Blur ทำให้โลโก้เคลื่อนเร็วแบบมีน้ำหนัก</li>
           <li>องศาแสงปรับได้ครบ 0-360 องศา เพื่อเลือกทิศทางแสงหรือทิศทางม่านได้อิสระ</li>
         </ul>
-        <p class="help-callout">ถ้าใช้ใน OBS เครื่องไม่แรง ให้ลด ความแรง/ความสมจริง หรือปิด Particles, Glow Mist, Camera Shake ก่อน</p>
+        <p class="help-callout">ถ้าใช้ใน OBS เครื่องไม่แรง ให้ลด ความแรง/ความสมจริง หรือปิด Lightning, Prism Shards, Glow Mist, Camera Shake ก่อน</p>
       `
     },
     export: {
@@ -487,7 +859,10 @@
   }
 
   function hexToRgb(hex) {
-    const clean = hex.replace("#", "");
+    const clean = String(hex || "").replace("#", "");
+    if (!/^[\da-f]{3}$|^[\da-f]{6}$/i.test(clean)) {
+      return { r: 255, g: 90, b: 0 };
+    }
     const value = parseInt(clean.length === 3 ? clean.replace(/(.)/g, "$1$1") : clean, 16);
     return {
       r: (value >> 16) & 255,
@@ -497,6 +872,10 @@
   }
 
   function rgba(hex, alpha) {
+    const rgbMatch = String(hex || "").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/i);
+    if (rgbMatch) {
+      return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${alpha})`;
+    }
     const c = hexToRgb(hex);
     return `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha})`;
   }
@@ -513,6 +892,11 @@
   function seeded(index) {
     const x = Math.sin(index * 9301 + 49297) * 233280;
     return x - Math.floor(x);
+  }
+
+  function normalizeHexColor(value, fallback) {
+    const color = String(value || "").trim();
+    return /^#[\da-f]{6}$/i.test(color) ? color : fallback;
   }
 
   function effectQuality() {
@@ -698,6 +1082,60 @@
     return 1 - easeInOutCubic((t - exitStart) / (1 - exitStart));
   }
 
+  function drawFluidMatte(w, h, timeline) {
+    if (!state.enableFluidMatte) return;
+    const p = getPanelProgress(timeline);
+    if (p <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const ext = Math.max(w, h) * 1.35;
+    const wave = Math.sin(timeline.t * Math.PI * 2.4) * h * 0.035;
+    const softness = Math.min(w, h) * lerp(0.018, 0.042, state.realism / 100);
+    const leftEdge = lerp(-w * 0.62, w * 0.52, p);
+    const rightEdge = lerp(w * 1.62, w * 0.48, p);
+
+    ctx.save();
+    ctx.globalCompositeOperation = "source-over";
+    ctx.filter = `blur(${softness}px)`;
+
+    const leftGradient = ctx.createLinearGradient(0, 0, w, h);
+    leftGradient.addColorStop(0, rgba(state.secondaryColor, 0.95));
+    leftGradient.addColorStop(0.52, rgba(state.primaryColor, 0.9));
+    leftGradient.addColorStop(1, rgba(state.accentColor, 0.72));
+    ctx.fillStyle = leftGradient;
+    ctx.beginPath();
+    ctx.moveTo(-ext, -ext);
+    ctx.lineTo(leftEdge - w * 0.12, -ext);
+    ctx.bezierCurveTo(leftEdge + w * 0.2, cy - h * 0.32 + wave, leftEdge + w * 0.26, cy + h * 0.28 - wave, leftEdge - w * 0.08, h + ext);
+    ctx.lineTo(-ext, h + ext);
+    ctx.closePath();
+    ctx.fill();
+
+    const rightGradient = ctx.createLinearGradient(w, 0, 0, h);
+    rightGradient.addColorStop(0, rgba(state.secondaryColor, 0.95));
+    rightGradient.addColorStop(0.5, rgba(state.accentColor, 0.82));
+    rightGradient.addColorStop(1, rgba(state.primaryColor, 0.88));
+    ctx.fillStyle = rightGradient;
+    ctx.beginPath();
+    ctx.moveTo(w + ext, -ext);
+    ctx.lineTo(rightEdge + w * 0.12, -ext);
+    ctx.bezierCurveTo(rightEdge - w * 0.24, cy - h * 0.28 - wave, rightEdge - w * 0.2, cy + h * 0.3 + wave, rightEdge + w * 0.08, h + ext);
+    ctx.lineTo(w + ext, h + ext);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.filter = "none";
+    ctx.globalCompositeOperation = "lighter";
+    const bloom = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * lerp(0.32, 0.58, p));
+    bloom.addColorStop(0, rgba(state.glowColor, 0.22 * p));
+    bloom.addColorStop(0.42, rgba(state.primaryColor, 0.12 * p));
+    bloom.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = bloom;
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+  }
+
   function drawPanels(w, h, timeline) {
     if (!state.enablePanels) return;
     const progress = getPanelProgress(timeline);
@@ -724,9 +1162,15 @@
     ctx.fillStyle = gradientRight;
     ctx.fillRect(offset - overlap, -ext, ext, ext * 2);
 
-    ctx.globalAlpha = 0.7;
-    ctx.fillStyle = rgba(state.glowColor, 0.9);
-    ctx.fillRect(-5, -ext, 10, ext * 2);
+    const edge = ctx.createLinearGradient(-44, 0, 44, 0);
+    edge.addColorStop(0, "rgba(255,255,255,0)");
+    edge.addColorStop(0.46, rgba(state.glowColor, 0.32));
+    edge.addColorStop(0.5, rgba(state.glowColor, 0.86));
+    edge.addColorStop(0.54, rgba(state.accentColor, 0.28));
+    edge.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.globalAlpha = 0.8;
+    ctx.fillStyle = edge;
+    ctx.fillRect(-44, -ext, 88, ext * 2);
     ctx.restore();
   }
 
@@ -734,18 +1178,567 @@
     if (!state.enableBars) return;
     const p = getPanelProgress(timeline);
     if (p <= 0.02) return;
-    const count = Math.round(3 + state.intensity / 18);
+    const count = Math.round(3 + state.intensity / 22);
 
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
     ctx.translate(w / 2, h / 2);
     ctx.rotate(angleRad(90));
     for (let i = -count; i <= count; i++) {
-      const x = i * (w * 0.085) + Math.sin(timeline.t * Math.PI * 2 + i) * 22;
-      const alpha = (0.09 + p * 0.12) * (1 - Math.abs(i) / (count + 1));
-      ctx.fillStyle = rgba(i % 2 ? state.primaryColor : state.glowColor, alpha);
-      ctx.fillRect(x, -h * 1.2, 3 + (i % 3), h * 2.4);
+      const x = i * (w * 0.095) + Math.sin(timeline.t * Math.PI * 2 + i) * 26;
+      const alpha = (0.045 + p * 0.08) * (1 - Math.abs(i) / (count + 1));
+      const width = Math.max(10, w * lerp(0.008, 0.018, seeded(i + 77)));
+      const grad = ctx.createLinearGradient(x - width, 0, x + width, 0);
+      grad.addColorStop(0, "rgba(255,255,255,0)");
+      grad.addColorStop(0.48, rgba(i % 2 ? state.primaryColor : state.glowColor, alpha));
+      grad.addColorStop(0.52, rgba(state.accentColor, alpha * 0.72));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(x - width, -h * 1.2, width * 2, h * 2.4);
     }
+    ctx.restore();
+  }
+
+  function drawSoftRibbons(w, h, timeline) {
+    if (!state.enableRibbons) return;
+    const p = getPanelProgress(timeline);
+    const flare = Math.sin(clamp((timeline.t - 0.04) / 0.88, 0, 1) * Math.PI);
+    const alpha = clamp((p * 0.14 + flare * 0.12) * (state.realism / 100), 0, 0.3);
+    if (alpha <= 0.01) return;
+
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.filter = `blur(${lerp(0.5, 2.4, state.realism / 100)}px)`;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    const count = Math.max(3, Math.round(6 * effectQuality()));
+    for (let i = 0; i < count; i += 1) {
+      const side = i % 2 ? -1 : 1;
+      const y = h * lerp(0.18, 0.82, seeded(i + 301));
+      const drift = Math.sin(timeline.t * Math.PI * 2 + i) * h * 0.045;
+      const width = Math.min(w, h) * lerp(0.035, 0.085, seeded(i + 307));
+      const grad = ctx.createLinearGradient(0, y, w, y + drift);
+      grad.addColorStop(0, "rgba(255,255,255,0)");
+      grad.addColorStop(0.34, rgba(i % 3 ? state.primaryColor : state.glowColor, alpha));
+      grad.addColorStop(0.62, rgba(state.accentColor, alpha * 0.8));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = width;
+      ctx.beginPath();
+      ctx.moveTo(-w * 0.18, y + side * drift);
+      ctx.bezierCurveTo(w * 0.24, y - h * 0.18 * side, w * 0.62, y + h * 0.22 * side, w * 1.18, y - drift);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawDepth3D(w, h, timeline) {
+    if (!state.enableDepth3D) return;
+    const panel = getPanelProgress(timeline);
+    const pulse = Math.max(0, 1 - Math.abs(timeline.t - timeline.cut) / 0.36);
+    const alpha = clamp((panel * 0.18 + pulse * 0.24) * (state.realism / 100), 0, 0.42);
+    if (alpha <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const layers = Math.max(4, Math.round(7 * effectQuality()));
+    const rotate = angleRad(-16) + Math.sin(timeline.t * Math.PI * 2) * 0.08;
+    const depthPush = Math.sin(timeline.t * Math.PI) * Math.min(w, h) * 0.035;
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rotate);
+    ctx.scale(1, 0.58);
+    ctx.globalCompositeOperation = "lighter";
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+
+    for (let i = layers; i >= 0; i -= 1) {
+      const z = i / layers;
+      const frame = lerp(0.18, 1.15, z);
+      const travel = (1 - panel) * Math.min(w, h) * 0.28;
+      const x = Math.cos(z * Math.PI * 1.7 + timeline.t * 2.2) * depthPush - travel;
+      const y = Math.sin(z * Math.PI * 1.2 + timeline.t * 1.6) * depthPush * 0.6;
+      const rw = w * frame * lerp(0.36, 0.62, state.intensity / 100);
+      const rh = h * frame * lerp(0.2, 0.34, state.realism / 100);
+      const localAlpha = alpha * lerp(0.16, 0.72, 1 - z);
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.shadowColor = rgba(i % 2 ? state.primaryColor : state.glowColor, localAlpha);
+      ctx.shadowBlur = lerp(12, 42, pulse);
+      ctx.strokeStyle = rgba(i % 2 ? state.accentColor : state.glowColor, localAlpha);
+      ctx.lineWidth = Math.max(2, Math.min(w, h) * lerp(0.003, 0.009, 1 - z));
+      roundRect(ctx, -rw / 2, -rh / 2, rw, rh, Math.min(w, h) * 0.018);
+      ctx.stroke();
+
+      const sheen = ctx.createLinearGradient(-rw / 2, 0, rw / 2, 0);
+      sheen.addColorStop(0, "rgba(255,255,255,0)");
+      sheen.addColorStop(0.48, rgba(state.primaryColor, localAlpha * 0.2));
+      sheen.addColorStop(0.5, rgba(state.glowColor, localAlpha * 0.7));
+      sheen.addColorStop(0.52, rgba(state.accentColor, localAlpha * 0.24));
+      sheen.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = sheen;
+      ctx.fillRect(-rw / 2, -rh / 2, rw, rh);
+      ctx.restore();
+    }
+
+    ctx.restore();
+  }
+
+  function drawOrbitCamera(w, h, timeline) {
+    if (!state.enableOrbitCamera) return;
+    const panel = getPanelProgress(timeline);
+    const cutPulse = Math.max(0, 1 - Math.abs(timeline.t - timeline.cut) / 0.42);
+    const alpha = clamp((0.1 + panel * 0.12 + cutPulse * 0.26) * (state.realism / 100), 0, 0.44);
+    if (alpha <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const radiusX = Math.min(w, h) * lerp(0.32, 0.58, state.logoSize / 130);
+    const radiusY = radiusX * 0.32;
+    const orbit = timeline.t * Math.PI * 2;
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.globalCompositeOperation = "lighter";
+    ctx.lineCap = "round";
+    for (let i = 0; i < 4; i += 1) {
+      const a = orbit + i * Math.PI * 0.5;
+      const tilt = lerp(-0.52, 0.52, seeded(i + 409));
+      ctx.save();
+      ctx.rotate(a * 0.22 + tilt);
+      ctx.strokeStyle = rgba(i % 2 ? state.primaryColor : state.glowColor, alpha * lerp(0.34, 0.82, seeded(i + 421)));
+      ctx.lineWidth = Math.max(2, Math.min(w, h) * lerp(0.004, 0.009, seeded(i + 433)));
+      ctx.setLineDash([Math.max(16, radiusX * 0.1), Math.max(14, radiusX * 0.08)]);
+      ctx.lineDashOffset = -timeline.t * radiusX * (0.8 + i * 0.25);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, radiusX * (1 + i * 0.1), radiusY * (1 + i * 0.18), 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+
+      const dotX = Math.cos(a) * radiusX * (1 + i * 0.1);
+      const dotY = Math.sin(a) * radiusY * (1 + i * 0.18);
+      const dotR = Math.min(w, h) * lerp(0.008, 0.018, seeded(i + 447)) * (0.8 + cutPulse * 0.9);
+      const glow = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, dotR * 4);
+      glow.addColorStop(0, rgba(state.glowColor, alpha));
+      glow.addColorStop(0.42, rgba(state.accentColor, alpha * 0.56));
+      glow.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(dotX, dotY, dotR * 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawVolumetricLightning(w, h, timeline) {
+    if (!state.enableLightning) return;
+    const start = Math.max(0.02, timeline.cut - 0.34);
+    const end = Math.min(0.94, timeline.cut + 0.46);
+    if (timeline.t < start || timeline.t > end) return;
+    const p = clamp((timeline.t - start) / (end - start), 0, 1);
+    const flash = Math.sin(p * Math.PI);
+    const branchCount = Math.max(3, Math.round(6 * effectQuality()));
+    const baseAngle = angleRad();
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const length = Math.max(w, h) * 0.95;
+
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    for (let b = 0; b < branchCount; b += 1) {
+      const branchSeed = b * 41 + Math.floor(timeline.t * 96);
+      const localAngle = baseAngle + lerp(-0.72, 0.72, seeded(branchSeed + 3));
+      const dx = Math.cos(localAngle);
+      const dy = Math.sin(localAngle);
+      const startOffset = lerp(-0.42, 0.42, seeded(branchSeed + 9));
+      const sx = cx - dx * length * lerp(0.24, 0.64, seeded(branchSeed + 13)) + Math.cos(localAngle + Math.PI / 2) * h * startOffset;
+      const sy = cy - dy * length * lerp(0.2, 0.5, seeded(branchSeed + 17)) + Math.sin(localAngle + Math.PI / 2) * h * startOffset;
+      const ex = cx + dx * length * lerp(0.22, 0.58, seeded(branchSeed + 21));
+      const ey = cy + dy * length * lerp(0.18, 0.5, seeded(branchSeed + 25));
+      const segments = 7 + Math.round(seeded(branchSeed + 29) * 4);
+      const points = [];
+      for (let i = 0; i <= segments; i += 1) {
+        const t = i / segments;
+        const jitter = Math.sin(t * Math.PI) * Math.min(w, h) * lerp(0.018, 0.075, seeded(branchSeed + i * 5));
+        const nx = -dy;
+        const ny = dx;
+        const fork = (seeded(branchSeed + i * 11) - 0.5) * 2;
+        points.push({
+          x: lerp(sx, ex, t) + nx * jitter * fork,
+          y: lerp(sy, ey, t) + ny * jitter * fork
+        });
+      }
+
+      const alpha = flash * lerp(0.18, 0.62, seeded(branchSeed + 33)) * (state.intensity / 100);
+      for (const pass of [
+        { width: Math.min(w, h) * 0.028, color: state.accentColor, alpha: alpha * 0.22, blur: 34 },
+        { width: Math.min(w, h) * 0.012, color: state.glowColor, alpha: alpha * 0.52, blur: 18 },
+        { width: Math.min(w, h) * 0.0035, color: "#ffffff", alpha: alpha, blur: 0 }
+      ]) {
+        ctx.save();
+        ctx.shadowColor = rgba(pass.color, pass.alpha);
+        ctx.shadowBlur = pass.blur;
+        ctx.strokeStyle = rgba(pass.color, pass.alpha);
+        ctx.lineWidth = Math.max(1.2, pass.width);
+        ctx.beginPath();
+        points.forEach((point, index) => {
+          if (index === 0) ctx.moveTo(point.x, point.y);
+          else ctx.lineTo(point.x, point.y);
+        });
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      if (b % 2 === 0) {
+        const forkStart = points[Math.max(1, Math.floor(points.length * 0.55))];
+        const forkAngle = localAngle + lerp(-1.1, 1.1, seeded(branchSeed + 37));
+        ctx.save();
+        ctx.strokeStyle = rgba(state.glowColor, alpha * 0.42);
+        ctx.lineWidth = Math.max(1, Math.min(w, h) * 0.003);
+        ctx.shadowColor = rgba(state.accentColor, alpha * 0.5);
+        ctx.shadowBlur = 16;
+        ctx.beginPath();
+        ctx.moveTo(forkStart.x, forkStart.y);
+        ctx.quadraticCurveTo(
+          forkStart.x + Math.cos(forkAngle) * length * 0.12,
+          forkStart.y + Math.sin(forkAngle) * length * 0.08,
+          forkStart.x + Math.cos(forkAngle) * length * 0.24,
+          forkStart.y + Math.sin(forkAngle) * length * 0.16
+        );
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawEmberSparks(w, h, timeline) {
+    if (!state.enableEmbers) return;
+    const start = Math.max(0, timeline.cut - 0.24);
+    const end = Math.min(1, timeline.cut + 0.78);
+    if (timeline.t < start || timeline.t > end) return;
+    const p = clamp((timeline.t - start) / (end - start), 0, 1);
+    const bloom = Math.sin(p * Math.PI);
+    if (bloom <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const count = Math.max(26, Math.round((42 + state.intensity * 0.9) * effectQuality()));
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < count; i += 1) {
+      const delay = seeded(i + 501) * 0.24;
+      const local = clamp((p - delay) / (1 - delay), 0, 1);
+      if (local <= 0 || local >= 1) continue;
+      const angle = seeded(i + 509) * Math.PI * 2 + local * lerp(-0.8, 0.8, seeded(i + 513));
+      const distance = Math.min(w, h) * lerp(0.04, 0.64, seeded(i + 517)) * easeOutCubic(local);
+      const lift = h * local * lerp(0.02, 0.22, seeded(i + 521));
+      const x = cx + Math.cos(angle) * distance;
+      const y = cy + Math.sin(angle) * distance * 0.48 - lift;
+      const size = Math.min(w, h) * lerp(0.004, 0.016, seeded(i + 527)) * (1 - local * 0.5);
+      const alpha = bloom * (1 - local) * lerp(0.35, 0.95, seeded(i + 531));
+      const grad = ctx.createRadialGradient(x, y, 0, x, y, size * 5.4);
+      grad.addColorStop(0, rgba(state.glowColor, alpha));
+      grad.addColorStop(0.26, rgba(state.accentColor, alpha * 0.7));
+      grad.addColorStop(0.72, rgba(state.primaryColor, alpha * 0.25));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(x, y, size * 5.4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle + Math.PI / 2);
+      ctx.strokeStyle = rgba(state.glowColor, alpha * 0.42);
+      ctx.lineWidth = Math.max(1, size * 0.45);
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(0, -size * 3.8);
+      ctx.lineTo(0, size * 2.2);
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  function drawLiquidWave(w, h, timeline) {
+    if (!state.enableLiquidWave) return;
+    const panel = getPanelProgress(timeline);
+    const swell = Math.sin(clamp((timeline.t - 0.02) / 0.9, 0, 1) * Math.PI);
+    const alpha = clamp((panel * 0.16 + swell * 0.2) * (state.realism / 100), 0, 0.34);
+    if (alpha <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const phase = timeline.t * Math.PI * 2;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.filter = `blur(${lerp(0.6, 2.8, state.realism / 100)}px)`;
+    for (let i = 0; i < 5; i += 1) {
+      const y = cy + (i - 2) * h * 0.11 + Math.sin(phase + i) * h * 0.035;
+      const height = h * lerp(0.07, 0.16, seeded(i + 601));
+      const waveOffset = Math.sin(phase * 0.7 + i) * w * 0.05;
+      const grad = ctx.createLinearGradient(0, y - height, w, y + height);
+      grad.addColorStop(0, "rgba(255,255,255,0)");
+      grad.addColorStop(0.25, rgba(state.glowColor, alpha * 0.2));
+      grad.addColorStop(0.52, rgba(state.primaryColor, alpha * 0.56));
+      grad.addColorStop(0.76, rgba(state.accentColor, alpha * 0.24));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(-w * 0.12, y);
+      ctx.bezierCurveTo(w * 0.18, y - height + waveOffset * 0.12, w * 0.36, y + height, w * 0.56, y - height * 0.45);
+      ctx.bezierCurveTo(w * 0.78, y - height, w * 0.92, y + height * 0.7, w * 1.14, y + waveOffset * 0.08);
+      ctx.lineTo(w * 1.14, y + height * 1.8);
+      ctx.bezierCurveTo(w * 0.78, y + height * 0.8, w * 0.42, y + height * 1.45, -w * 0.12, y + height * 0.9);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.filter = "none";
+    ctx.strokeStyle = rgba(state.glowColor, alpha * 0.55);
+    ctx.lineWidth = Math.max(1.5, Math.min(w, h) * 0.003);
+    ctx.setLineDash([Math.min(w, h) * 0.055, Math.min(w, h) * 0.045]);
+    ctx.lineDashOffset = -timeline.t * Math.min(w, h) * 0.35;
+    for (let i = 0; i < 4; i += 1) {
+      ctx.beginPath();
+      const r = Math.min(w, h) * lerp(0.16, 0.58, i / 3) * (0.86 + panel * 0.2);
+      ctx.ellipse(cx, cy, r * 1.35, r * 0.36, angleRad(i * 18), 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawPrismShards(w, h, timeline) {
+    if (!state.enablePrismShards) return;
+    const panel = getPanelProgress(timeline);
+    const cutPulse = Math.max(0, 1 - Math.abs(timeline.t - timeline.cut) / 0.4);
+    const alpha = clamp((panel * 0.12 + cutPulse * 0.28) * (state.realism / 100), 0, 0.38);
+    if (alpha <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const count = Math.max(6, Math.round(10 * effectQuality()));
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < count; i += 1) {
+      const orbit = seeded(i + 701) * Math.PI * 2 + timeline.t * lerp(-0.9, 0.9, seeded(i + 707));
+      const dist = Math.min(w, h) * lerp(0.18, 0.68, seeded(i + 713)) * (0.75 + panel * 0.35);
+      const x = cx + Math.cos(orbit) * dist;
+      const y = cy + Math.sin(orbit) * dist * 0.56;
+      const size = Math.min(w, h) * lerp(0.035, 0.12, seeded(i + 719));
+      const skew = lerp(-0.45, 0.45, seeded(i + 727));
+      const localAlpha = alpha * lerp(0.32, 0.9, seeded(i + 733));
+      const grad = ctx.createLinearGradient(x - size, y - size, x + size, y + size);
+      grad.addColorStop(0, rgba(state.glowColor, localAlpha * 0.02));
+      grad.addColorStop(0.24, rgba(state.primaryColor, localAlpha * 0.42));
+      grad.addColorStop(0.52, rgba(state.glowColor, localAlpha * 0.52));
+      grad.addColorStop(0.84, rgba(state.accentColor, localAlpha * 0.32));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(orbit + timeline.t * 0.8);
+      ctx.shadowColor = rgba(i % 2 ? state.accentColor : state.glowColor, localAlpha);
+      ctx.shadowBlur = 18 + cutPulse * 32;
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(-size * 0.78, -size * 0.2);
+      ctx.lineTo(size * (0.22 + skew), -size * 0.92);
+      ctx.lineTo(size * 0.92, size * 0.12);
+      ctx.lineTo(-size * (0.08 - skew), size * 0.84);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = rgba(state.glowColor, localAlpha * 0.45);
+      ctx.lineWidth = Math.max(1, size * 0.035);
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  function drawCineZoom(w, h, timeline) {
+    if (!state.enableCineZoom) return;
+    const start = Math.max(0, timeline.cut - 0.34);
+    const end = Math.min(1, timeline.cut + 0.38);
+    if (timeline.t < start || timeline.t > end) return;
+    const p = clamp((timeline.t - start) / (end - start), 0, 1);
+    const pulse = Math.sin(p * Math.PI);
+    if (pulse <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const rays = Math.max(16, Math.round(28 * effectQuality()));
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.translate(cx, cy);
+    ctx.rotate(angleRad(-6));
+    for (let i = 0; i < rays; i += 1) {
+      const a = (i / rays) * Math.PI * 2 + seeded(i + 1001) * 0.18;
+      const inner = Math.min(w, h) * lerp(0.08, 0.22, seeded(i + 1007)) * (1 - pulse * 0.24);
+      const outer = Math.max(w, h) * lerp(0.42, 0.92, seeded(i + 1013)) * (1 + pulse * 0.28);
+      const width = Math.min(w, h) * lerp(0.005, 0.018, seeded(i + 1019));
+      const localAlpha = pulse * lerp(0.08, 0.28, seeded(i + 1021)) * (state.intensity / 100);
+      const grad = ctx.createLinearGradient(Math.cos(a) * inner, Math.sin(a) * inner, Math.cos(a) * outer, Math.sin(a) * outer);
+      grad.addColorStop(0, "rgba(255,255,255,0)");
+      grad.addColorStop(0.42, rgba(i % 2 ? state.primaryColor : state.glowColor, localAlpha));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = Math.max(1, width);
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a) * inner, Math.sin(a) * inner);
+      ctx.lineTo(Math.cos(a) * outer, Math.sin(a) * outer);
+      ctx.stroke();
+    }
+
+    const zoomBloom = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.min(w, h) * lerp(0.24, 0.68, pulse));
+    zoomBloom.addColorStop(0, rgba(state.glowColor, pulse * 0.18));
+    zoomBloom.addColorStop(0.48, rgba(state.primaryColor, pulse * 0.1));
+    zoomBloom.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = zoomBloom;
+    ctx.beginPath();
+    ctx.arc(0, 0, Math.min(w, h) * 0.72, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawGlitchFlash(w, h, timeline) {
+    if (!state.enableGlitchFlash) return;
+    const start = Math.max(0, timeline.cut - 0.2);
+    const end = Math.min(1, timeline.cut + 0.24);
+    if (timeline.t < start || timeline.t > end) return;
+    const p = clamp((timeline.t - start) / (end - start), 0, 1);
+    const flash = Math.sin(p * Math.PI);
+    if (flash <= 0.01) return;
+
+    const bands = Math.max(5, Math.round(10 * effectQuality()));
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < bands; i += 1) {
+      const y = h * seeded(i + 1101);
+      const bh = h * lerp(0.012, 0.055, seeded(i + 1107));
+      const drift = (seeded(i + Math.floor(timeline.t * 140) + 1113) - 0.5) * w * 0.16 * flash;
+      const alpha = flash * lerp(0.04, 0.18, seeded(i + 1119));
+      const grad = ctx.createLinearGradient(0, y, w, y + bh);
+      grad.addColorStop(0, "rgba(255,255,255,0)");
+      grad.addColorStop(0.16, rgba(state.accentColor, alpha * 0.72));
+      grad.addColorStop(0.5, rgba(state.glowColor, alpha));
+      grad.addColorStop(0.84, rgba(state.primaryColor, alpha * 0.72));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grad;
+      ctx.filter = `blur(${Math.max(1, h * 0.003)}px)`;
+      ctx.fillRect(drift - w * 0.08, y, w * 1.16, bh);
+    }
+    ctx.filter = "none";
+    ctx.globalAlpha = flash * 0.1;
+    ctx.fillStyle = state.glowColor;
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+  }
+
+  function drawDisplacementPulse(w, h, timeline) {
+    if (!state.enableDisplacementPulse) return;
+    const start = Math.max(0, timeline.cut - 0.32);
+    const end = Math.min(1, timeline.cut + 0.58);
+    if (timeline.t < start || timeline.t > end) return;
+    const p = clamp((timeline.t - start) / (end - start), 0, 1);
+    const pulse = Math.sin(p * Math.PI);
+    if (pulse <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.lineCap = "round";
+    for (let i = 0; i < 5; i += 1) {
+      const local = clamp(p - i * 0.08, 0, 1);
+      if (local <= 0) continue;
+      const r = Math.min(w, h) * lerp(0.12, 0.76, easeOutCubic(local));
+      const alpha = (1 - local) * pulse * lerp(0.08, 0.24, state.realism / 100);
+      const grad = ctx.createLinearGradient(cx - r, cy, cx + r, cy);
+      grad.addColorStop(0, "rgba(255,255,255,0)");
+      grad.addColorStop(0.35, rgba(state.primaryColor, alpha));
+      grad.addColorStop(0.5, rgba(state.glowColor, alpha * 1.6));
+      grad.addColorStop(0.65, rgba(state.accentColor, alpha));
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = Math.max(2, Math.min(w, h) * lerp(0.006, 0.018, 1 - local));
+      ctx.filter = `blur(${Math.min(w, h) * 0.0025}px)`;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, r * 1.32, r * 0.48, angleRad(i * 11), 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.filter = "none";
+    ctx.restore();
+  }
+
+  function drawShatterTiles(w, h, timeline) {
+    if (!state.enableShatterTiles) return;
+    const start = Math.max(0, timeline.cut - 0.18);
+    const end = Math.min(1, timeline.cut + 0.58);
+    if (timeline.t < start || timeline.t > end) return;
+    const p = clamp((timeline.t - start) / (end - start), 0, 1);
+    const impact = Math.sin(p * Math.PI);
+    if (impact <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const tiles = Math.max(10, Math.round(18 * effectQuality()));
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < tiles; i += 1) {
+      const a = seeded(i + 1201) * Math.PI * 2;
+      const dist = Math.min(w, h) * lerp(0.08, 0.62, seeded(i + 1207)) * easeOutCubic(p);
+      const x = cx + Math.cos(a) * dist;
+      const y = cy + Math.sin(a) * dist * 0.58;
+      const tileW = Math.min(w, h) * lerp(0.028, 0.09, seeded(i + 1213));
+      const tileH = tileW * lerp(0.38, 0.82, seeded(i + 1219));
+      const alpha = impact * lerp(0.12, 0.42, seeded(i + 1223));
+      const grad = ctx.createLinearGradient(-tileW, -tileH, tileW, tileH);
+      grad.addColorStop(0, rgba(state.glowColor, alpha * 0.04));
+      grad.addColorStop(0.3, rgba(state.primaryColor, alpha * 0.42));
+      grad.addColorStop(0.58, rgba(state.glowColor, alpha * 0.48));
+      grad.addColorStop(1, rgba(state.accentColor, alpha * 0.18));
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(a + p * lerp(-1.4, 1.4, seeded(i + 1229)));
+      ctx.shadowColor = rgba(state.glowColor, alpha);
+      ctx.shadowBlur = 20 * impact;
+      ctx.fillStyle = grad;
+      roundRect(ctx, -tileW / 2, -tileH / 2, tileW, tileH, Math.max(2, tileW * 0.08));
+      ctx.fill();
+      ctx.strokeStyle = rgba(state.glowColor, alpha * 0.38);
+      ctx.lineWidth = Math.max(1, tileW * 0.035);
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  function drawRgbSplitOverlay(w, h, timeline) {
+    if (!state.enableRgbSplit || !processedLogo) return;
+    const start = Math.max(0, timeline.cut - 0.28);
+    const end = Math.min(1, timeline.cut + 0.34);
+    if (timeline.t < start || timeline.t > end) return;
+    const p = clamp((timeline.t - start) / (end - start), 0, 1);
+    const split = Math.sin(p * Math.PI);
+    if (split <= 0.01) return;
+
+    const amount = Math.min(w, h) * lerp(0.006, 0.024, state.intensity / 100) * split;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.globalAlpha = 0.18 + split * 0.22;
+    ctx.filter = `drop-shadow(${amount}px 0 0 ${state.accentColor})`;
+    ctx.drawImage(logoLayer, amount, 0);
+    ctx.filter = `drop-shadow(${-amount}px 0 0 ${state.glowColor})`;
+    ctx.drawImage(logoLayer, -amount, 0);
+    ctx.filter = "none";
+    ctx.globalAlpha = split * 0.12;
+    ctx.drawImage(logoLayer, 0, amount * 0.45);
     ctx.restore();
   }
 
@@ -861,6 +1854,31 @@
     ctx.fillStyle = grad;
     ctx.beginPath();
     ctx.arc(cx, cy, radius * 1.34, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawLogoBloom(w, h, timeline) {
+    if (!state.enableLogoBloom) return;
+    const cutGlow = Math.max(0, 1 - Math.abs(timeline.t - timeline.cut) / 0.34);
+    const panel = getPanelProgress(timeline);
+    const alpha = clamp((0.1 + cutGlow * 0.28 + panel * 0.08) * (state.realism / 100), 0, 0.42);
+    if (alpha <= 0.01) return;
+
+    const cx = w * state.logoX / 100;
+    const cy = h * state.logoY / 100;
+    const radius = Math.min(w, h) * lerp(0.2, 0.48, state.logoSize / 130);
+
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    const bloom = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * (1.25 + cutGlow * 0.45));
+    bloom.addColorStop(0, rgba(state.glowColor, alpha));
+    bloom.addColorStop(0.36, rgba(state.primaryColor, alpha * 0.42));
+    bloom.addColorStop(0.72, rgba(state.accentColor, alpha * 0.18));
+    bloom.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = bloom;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius * (1.25 + cutGlow * 0.45), 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
@@ -1153,13 +2171,27 @@
       const distance = w * part.radius * local * part.speed;
       const x = cx + Math.cos(part.angle) * distance;
       const y = cy + Math.sin(part.angle) * distance * 0.6;
-      const size = part.size * (1 - local * 0.55);
+      const size = part.size * (1 - local * 0.42);
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(part.angle + local * part.spin * Math.PI);
-      ctx.globalAlpha = alphaBase * (1 - local) * 0.85;
-      ctx.fillStyle = mixColor(state.primaryColor, state.accentColor, part.colorMix);
-      ctx.fillRect(-size * 2.2, -size * 0.32, size * 4.4, size * 0.64);
+      ctx.globalAlpha = alphaBase * (1 - local) * 0.72;
+      const spark = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 4.2);
+      spark.addColorStop(0, rgba(state.glowColor, 0.72));
+      spark.addColorStop(0.36, rgba(mixColor(state.primaryColor, state.accentColor, part.colorMix), 0.45));
+      spark.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = spark;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, size * 4.2, size * 1.6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha *= 0.62;
+      ctx.strokeStyle = rgba(state.glowColor, 0.36);
+      ctx.lineWidth = Math.max(1.2, size * 0.24);
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(-size * 2.4, 0);
+      ctx.lineTo(size * 2.4, 0);
+      ctx.stroke();
       ctx.restore();
     }
     ctx.restore();
@@ -1221,14 +2253,28 @@
     drawAtmosphere(w, h, timeline);
     drawVolumetricRays(w, h, timeline);
     drawGlowMist(w, h, timeline);
+    drawFluidMatte(w, h, timeline);
+    drawCineZoom(w, h, timeline);
+    drawDisplacementPulse(w, h, timeline);
+    drawLiquidWave(w, h, timeline);
+    drawDepth3D(w, h, timeline);
+    drawPrismShards(w, h, timeline);
+    drawShatterTiles(w, h, timeline);
     drawPanels(w, h, timeline);
     drawShutterWipe(w, h, timeline);
     drawSplitBars(w, h, timeline);
+    drawSoftRibbons(w, h, timeline);
     drawEnergyRing(w, h, timeline);
     drawShockwave(w, h, timeline);
+    drawVolumetricLightning(w, h, timeline);
+    drawGlitchFlash(w, h, timeline);
     drawParticles(w, h, timeline);
+    drawEmberSparks(w, h, timeline);
+    drawLogoBloom(w, h, timeline);
+    drawOrbitCamera(w, h, timeline);
     drawLogoToLayer(w, h, timeline);
     ctx.drawImage(logoLayer, 0, 0);
+    drawRgbSplitOverlay(w, h, timeline);
     drawLightWrap(w, h, timeline);
     drawLensFlare(w, h, timeline);
     drawTitleBadge(w, h, timeline);
@@ -1297,14 +2343,22 @@
     $("metricResolution").textContent = `${state.width}x${state.height}${previewText}`;
     $("metricFps").textContent = String(state.fps);
     $("metricAlpha").textContent = "Alpha ON";
-    $("obsSettings").textContent = [
+    const obsLines = [
       "Scene Transition: Stinger",
       "Video File: pepslive-stinger-studio.webm",
       "Transition Point Type: Time (milliseconds)",
       `Transition Point: ${state.transitionPoint}`,
       `Canvas: ${state.width}x${state.height} @ ${state.fps}fps`,
       "Alpha: Straight / WebM VP9 preferred"
-    ].join("\n");
+    ];
+    if (state.exportMode === "track-matte") {
+      obsLines.push(
+        "Track Matte: Side-by-Side",
+        "Matte Layout: Video left, matte right",
+        "Matte Type: Luma Matte"
+      );
+    }
+    $("obsSettings").textContent = obsLines.join("\n");
 
     const coverage = Math.round(getPanelProgress(getTimeline(currentTime)) * 100);
     $("alphaCoverage").style.width = `${coverage}%`;
@@ -1322,13 +2376,48 @@
   }
 
   function normalizeState() {
+    Object.keys(fullFx).forEach((key) => {
+      if (typeof state[key] !== "boolean") state[key] = fullFx[key];
+    });
+    if (!curatedPresetKeys.includes(state.preset)) {
+      state.preset = "peps-impact";
+    }
+    state.enableParticles = false;
+    state.enableBars = false;
+    state.enableShutter = false;
+    state.enableLabel = false;
     state.sweepAngle = normalizeAngle(state.sweepAngle);
-    state.duration = Number(state.duration) || 2400;
+    state.duration = clamp(Number(state.duration) || 2400, 1200, 4200);
     state.transitionPoint = clamp(Number(state.transitionPoint) || 1000, 400, Math.max(500, state.duration - 300));
+    state.fps = [30, 60].includes(Number(state.fps)) ? Number(state.fps) : 60;
+    state.width = clamp(Number(state.width) || 1920, 640, 3840);
+    state.height = clamp(Number(state.height) || 1080, 360, 2160);
+    if (!["1280x720", "1920x1080", "2560x1440"].includes(`${state.width}x${state.height}`)) {
+      state.width = 1920;
+      state.height = 1080;
+    }
+    state.logoSize = clamp(Number(state.logoSize) || 42, 10, 130);
+    state.logoX = clamp(Number(state.logoX) || 50, 20, 80);
+    state.logoY = clamp(Number(state.logoY) || 50, 20, 80);
+    state.logoRotate = clamp(Number(state.logoRotate) || 0, -30, 30);
     state.intensity = clamp(Number(state.intensity) || 72, 10, 100);
     state.realism = clamp(Number(state.realism) || 68, 0, 100);
+    state.primaryColor = normalizeHexColor(state.primaryColor, "#ff5a00");
+    state.secondaryColor = normalizeHexColor(state.secondaryColor, "#101010");
+    state.glowColor = normalizeHexColor(state.glowColor, "#ffffff");
+    state.accentColor = normalizeHexColor(state.accentColor, "#ff9a3c");
+    state.stingerLabel = String(state.stingerLabel || "PEPS LIVE").slice(0, 18);
     if (!["smooth", "balanced", "full"].includes(state.previewQuality)) {
       state.previewQuality = "smooth";
+    }
+    if (!["cinematic", "snappy", "smooth"].includes(state.easing)) {
+      state.easing = "cinematic";
+    }
+    if (!["checker", "dark", "bright", "court"].includes(state.previewBg)) {
+      state.previewBg = "checker";
+    }
+    if (!["standard", "track-matte"].includes(state.exportMode)) {
+      state.exportMode = "standard";
     }
     state.previewLoop = Boolean(state.previewLoop);
   }
@@ -1414,13 +2503,16 @@
 
   function buildPresetGrid() {
     const grid = $("presetGrid");
-    grid.innerHTML = Object.entries(presets).map(([key, preset]) => (
+    grid.innerHTML = curatedPresetKeys.map((key) => {
+      const preset = presets[key];
+      return (
       `<button class="preset-card" type="button" data-preset="${key}">
         <strong>${preset.name}</strong>
         <small>${preset.note}</small>
         <em>${preset.category || "Preset"}</em>
       </button>`
-    )).join("");
+      );
+    }).join("");
     grid.addEventListener("click", (event) => {
       const card = event.target.closest(".preset-card");
       if (card) applyPreset(card.dataset.preset);
@@ -1597,7 +2689,199 @@
     }
   }
 
-  function getRecorderOptions() {
+  function drawTrackMatteMap(targetCtx, x, y, w, h, timeline) {
+    const p = getPanelProgress(timeline);
+    const pulse = Math.max(0, 1 - Math.abs(timeline.t - timeline.cut) / 0.32);
+    targetCtx.save();
+    targetCtx.fillStyle = "#000000";
+    targetCtx.fillRect(x, y, w, h);
+    targetCtx.beginPath();
+    targetCtx.rect(x, y, w, h);
+    targetCtx.clip();
+
+    if (p > 0.004) {
+      const cx = x + w * state.logoX / 100;
+      const cy = y + h * state.logoY / 100;
+      const ext = Math.max(w, h) * 1.35;
+      const wave = Math.sin(timeline.t * Math.PI * 2.4) * h * 0.035;
+      const softness = Math.min(w, h) * lerp(0.012, 0.034, state.realism / 100);
+      const leftEdge = x + lerp(-w * 0.62, w * 0.52, p);
+      const rightEdge = x + lerp(w * 1.62, w * 0.48, p);
+
+      targetCtx.filter = `blur(${softness}px)`;
+      targetCtx.fillStyle = "rgb(255,255,255)";
+      targetCtx.beginPath();
+      targetCtx.moveTo(x - ext, y - ext);
+      targetCtx.lineTo(leftEdge - w * 0.12, y - ext);
+      targetCtx.bezierCurveTo(leftEdge + w * 0.2, cy - h * 0.32 + wave, leftEdge + w * 0.26, cy + h * 0.28 - wave, leftEdge - w * 0.08, y + h + ext);
+      targetCtx.lineTo(x - ext, y + h + ext);
+      targetCtx.closePath();
+      targetCtx.fill();
+
+      targetCtx.beginPath();
+      targetCtx.moveTo(x + w + ext, y - ext);
+      targetCtx.lineTo(rightEdge + w * 0.12, y - ext);
+      targetCtx.bezierCurveTo(rightEdge - w * 0.24, cy - h * 0.28 - wave, rightEdge - w * 0.2, cy + h * 0.3 + wave, rightEdge + w * 0.08, y + h + ext);
+      targetCtx.lineTo(x + w + ext, y + h + ext);
+      targetCtx.closePath();
+      targetCtx.fill();
+
+      const bloom = targetCtx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * lerp(0.24, 0.56, p));
+      bloom.addColorStop(0, `rgba(255,255,255,${0.32 + pulse * 0.42})`);
+      bloom.addColorStop(0.54, `rgba(210,210,210,${0.18 + p * 0.26})`);
+      bloom.addColorStop(1, "rgba(0,0,0,0)");
+      targetCtx.filter = "none";
+      targetCtx.globalCompositeOperation = "screen";
+      targetCtx.fillStyle = bloom;
+      targetCtx.fillRect(x, y, w, h);
+    }
+
+    if (state.enableDepth3D && p > 0.02) {
+      targetCtx.globalCompositeOperation = "screen";
+      targetCtx.filter = "none";
+      targetCtx.strokeStyle = `rgba(255,255,255,${clamp(0.16 + pulse * 0.28, 0, 0.5)})`;
+      targetCtx.lineWidth = Math.max(3, Math.min(w, h) * 0.006);
+      targetCtx.save();
+      targetCtx.translate(x + w * state.logoX / 100, y + h * state.logoY / 100);
+      targetCtx.rotate(angleRad(-16));
+      targetCtx.scale(1, 0.58);
+      for (let i = 0; i < 5; i += 1) {
+        const z = i / 4;
+        const rw = w * lerp(0.24, 0.82, z);
+        const rh = h * lerp(0.14, 0.45, z);
+        roundRect(targetCtx, -rw / 2, -rh / 2, rw, rh, Math.min(w, h) * 0.018);
+        targetCtx.stroke();
+      }
+      targetCtx.restore();
+    }
+
+    if (state.enableLiquidWave && p > 0.01) {
+      const cx = x + w * state.logoX / 100;
+      const cy = y + h * state.logoY / 100;
+      targetCtx.globalCompositeOperation = "screen";
+      targetCtx.filter = `blur(${Math.min(w, h) * 0.018}px)`;
+      targetCtx.fillStyle = `rgba(255,255,255,${clamp(0.1 + p * 0.42, 0, 0.62)})`;
+      for (let i = 0; i < 4; i += 1) {
+        const yWave = cy + (i - 1.5) * h * 0.13 + Math.sin(timeline.t * Math.PI * 2 + i) * h * 0.04;
+        targetCtx.beginPath();
+        targetCtx.moveTo(x - w * 0.1, yWave);
+        targetCtx.bezierCurveTo(x + w * 0.24, yWave - h * 0.12, x + w * 0.58, yWave + h * 0.12, x + w * 1.1, yWave - h * 0.03);
+        targetCtx.lineTo(x + w * 1.1, yWave + h * 0.18);
+        targetCtx.bezierCurveTo(x + w * 0.66, yWave + h * 0.1, x + w * 0.24, yWave + h * 0.2, x - w * 0.1, yWave + h * 0.1);
+        targetCtx.closePath();
+        targetCtx.fill();
+      }
+      targetCtx.filter = "none";
+    }
+
+    if (state.enableLightning && pulse > 0.05) {
+      const cx = x + w * state.logoX / 100;
+      const cy = y + h * state.logoY / 100;
+      const dir = angleRad();
+      const dx = Math.cos(dir);
+      const dy = Math.sin(dir);
+      targetCtx.globalCompositeOperation = "screen";
+      targetCtx.strokeStyle = `rgba(255,255,255,${clamp(0.18 + pulse * 0.68, 0, 0.88)})`;
+      targetCtx.lineWidth = Math.max(3, Math.min(w, h) * 0.01);
+      targetCtx.shadowColor = "rgba(255,255,255,0.8)";
+      targetCtx.shadowBlur = Math.min(w, h) * 0.025;
+      for (let b = 0; b < 3; b += 1) {
+        targetCtx.beginPath();
+        for (let i = 0; i <= 7; i += 1) {
+          const t = i / 7;
+          const jitter = Math.sin(t * Math.PI) * Math.min(w, h) * 0.05 * (seeded(b * 30 + i + 811) - 0.5);
+          const px = cx + (t - 0.5) * dx * w * 1.15 - dy * (b - 1) * h * 0.14 + -dy * jitter;
+          const py = cy + (t - 0.5) * dy * h * 0.88 + dx * (b - 1) * h * 0.14 + dx * jitter;
+          if (i === 0) targetCtx.moveTo(px, py);
+          else targetCtx.lineTo(px, py);
+        }
+        targetCtx.stroke();
+      }
+      targetCtx.shadowBlur = 0;
+    }
+
+    if (state.enablePrismShards && pulse > 0.02) {
+      const cx = x + w * state.logoX / 100;
+      const cy = y + h * state.logoY / 100;
+      targetCtx.globalCompositeOperation = "screen";
+      targetCtx.fillStyle = `rgba(255,255,255,${clamp(0.08 + pulse * 0.34, 0, 0.42)})`;
+      for (let i = 0; i < 8; i += 1) {
+        const a = seeded(i + 901) * Math.PI * 2 + timeline.t;
+        const dist = Math.min(w, h) * lerp(0.18, 0.58, seeded(i + 907));
+        const sx = Math.min(w, h) * lerp(0.035, 0.1, seeded(i + 913));
+        const px = cx + Math.cos(a) * dist;
+        const py = cy + Math.sin(a) * dist * 0.55;
+        targetCtx.beginPath();
+        targetCtx.moveTo(px - sx, py);
+        targetCtx.lineTo(px, py - sx * 1.4);
+        targetCtx.lineTo(px + sx * 1.2, py + sx * 0.2);
+        targetCtx.lineTo(px - sx * 0.2, py + sx);
+        targetCtx.closePath();
+        targetCtx.fill();
+      }
+    }
+
+    if ((state.enableCineZoom || state.enableDisplacementPulse) && pulse > 0.02) {
+      const cx = x + w * state.logoX / 100;
+      const cy = y + h * state.logoY / 100;
+      targetCtx.globalCompositeOperation = "screen";
+      targetCtx.strokeStyle = `rgba(255,255,255,${clamp(0.08 + pulse * 0.36, 0, 0.5)})`;
+      targetCtx.lineWidth = Math.max(2, Math.min(w, h) * 0.006);
+      for (let i = 0; i < 4; i += 1) {
+        const r = Math.min(w, h) * lerp(0.14, 0.72, i / 3) * (0.7 + pulse * 0.4);
+        targetCtx.beginPath();
+        targetCtx.ellipse(cx, cy, r * 1.35, r * 0.5, angleRad(i * 10), 0, Math.PI * 2);
+        targetCtx.stroke();
+      }
+    }
+
+    if (state.enableGlitchFlash && pulse > 0.06) {
+      targetCtx.globalCompositeOperation = "screen";
+      targetCtx.fillStyle = `rgba(255,255,255,${clamp(0.08 + pulse * 0.28, 0, 0.4)})`;
+      for (let i = 0; i < 6; i += 1) {
+        const bandY = y + h * seeded(i + 1301);
+        const bandH = h * lerp(0.012, 0.05, seeded(i + 1307));
+        targetCtx.fillRect(x + w * (seeded(i + 1313) - 0.5) * 0.12, bandY, w, bandH);
+      }
+    }
+
+    if (state.enableShatterTiles && pulse > 0.04) {
+      const cx = x + w * state.logoX / 100;
+      const cy = y + h * state.logoY / 100;
+      targetCtx.globalCompositeOperation = "screen";
+      targetCtx.fillStyle = `rgba(255,255,255,${clamp(0.08 + pulse * 0.32, 0, 0.44)})`;
+      for (let i = 0; i < 12; i += 1) {
+        const a = seeded(i + 1321) * Math.PI * 2;
+        const dist = Math.min(w, h) * lerp(0.1, 0.54, seeded(i + 1327));
+        const tile = Math.min(w, h) * lerp(0.035, 0.085, seeded(i + 1331));
+        targetCtx.save();
+        targetCtx.translate(cx + Math.cos(a) * dist, cy + Math.sin(a) * dist * 0.55);
+        targetCtx.rotate(a + timeline.t);
+        roundRect(targetCtx, -tile / 2, -tile * 0.28, tile, tile * 0.56, Math.max(2, tile * 0.08));
+        targetCtx.fill();
+        targetCtx.restore();
+      }
+    }
+
+    targetCtx.restore();
+    targetCtx.globalCompositeOperation = "source-over";
+    targetCtx.filter = "none";
+  }
+
+  function composeTrackMatteFrame(timeMs) {
+    const w = canvas.width;
+    const h = canvas.height;
+    if (trackMatteCanvas.width !== w * 2 || trackMatteCanvas.height !== h) {
+      trackMatteCanvas.width = w * 2;
+      trackMatteCanvas.height = h;
+    }
+    trackMatteCtx.fillStyle = "#000000";
+    trackMatteCtx.fillRect(0, 0, trackMatteCanvas.width, trackMatteCanvas.height);
+    trackMatteCtx.drawImage(canvas, 0, 0, w, h);
+    drawTrackMatteMap(trackMatteCtx, w, 0, w, h, getTimeline(timeMs));
+  }
+
+  function getRecorderOptions(videoBitsPerSecond = state.bitrate) {
     const candidates = [
       "video/webm;codecs=vp9",
       "video/webm;codecs=vp8",
@@ -1605,8 +2889,8 @@
     ];
     const mimeType = candidates.find((type) => window.MediaRecorder?.isTypeSupported(type)) || "";
     return mimeType
-      ? { mimeType, videoBitsPerSecond: state.bitrate }
-      : { videoBitsPerSecond: state.bitrate };
+      ? { mimeType, videoBitsPerSecond }
+      : { videoBitsPerSecond };
   }
 
   function exportWebm() {
@@ -1620,6 +2904,9 @@
     isRecording = true;
     setCanvasSize(true);
     drawFrame(0, true);
+    const isTrackMatteExport = state.exportMode === "track-matte";
+    if (isTrackMatteExport) composeTrackMatteFrame(0);
+    const recordCanvas = isTrackMatteExport ? trackMatteCanvas : canvas;
 
     $("exportState").textContent = "กำลังเข้ารหัส WebM...";
     $("btnExport").textContent = "กำลังบันทึก...";
@@ -1630,21 +2917,22 @@
     const totalFrames = Math.ceil(state.duration / frameDuration);
     let stream;
     try {
-      stream = canvas.captureStream(0);
+      stream = recordCanvas.captureStream(0);
     } catch (error) {
-      stream = canvas.captureStream(fps);
+      stream = recordCanvas.captureStream(fps);
     }
     let videoTrack = stream.getVideoTracks()[0];
     let canRequestFrame = Boolean(videoTrack && typeof videoTrack.requestFrame === "function");
     if (!canRequestFrame) {
       stream.getTracks().forEach((track) => track.stop());
-      stream = canvas.captureStream(fps);
+      stream = recordCanvas.captureStream(fps);
       videoTrack = stream.getVideoTracks()[0];
       canRequestFrame = Boolean(videoTrack && typeof videoTrack.requestFrame === "function");
     }
     let recorder;
+    const exportBitrate = isTrackMatteExport ? Math.round(state.bitrate * 1.65) : state.bitrate;
     try {
-      recorder = new MediaRecorder(stream, getRecorderOptions());
+      recorder = new MediaRecorder(stream, getRecorderOptions(exportBitrate));
     } catch (error) {
       recorder = new MediaRecorder(stream);
     }
@@ -1680,7 +2968,8 @@
       }
 
       const blob = new Blob(chunks, { type: recorder.mimeType || "video/webm" });
-      downloadBlob(blob, `pepslive-stinger-studio-${dateStamp()}.webm`);
+      const suffix = isTrackMatteExport ? "track-matte" : "standard";
+      downloadBlob(blob, `pepslive-stinger-studio-${suffix}-${dateStamp()}.webm`);
       stream.getTracks().forEach((track) => track.stop());
       isRecording = false;
       setCanvasSize(true);
@@ -1698,6 +2987,7 @@
     const renderExportFrame = () => {
       const frameTime = Math.min(frameIndex * frameDuration, state.duration);
       drawFrame(frameTime, frameIndex === 0 || frameIndex >= totalFrames);
+      if (isTrackMatteExport) composeTrackMatteFrame(frameTime);
       if (canRequestFrame) videoTrack.requestFrame();
 
       const now = performance.now();
@@ -1714,6 +3004,7 @@
         window.setTimeout(() => requestAnimationFrame(renderExportFrame), delay);
       } else {
         drawFrame(state.duration, true);
+        if (isTrackMatteExport) composeTrackMatteFrame(state.duration);
         if (canRequestFrame) videoTrack.requestFrame();
         window.setTimeout(() => recorder.stop(), Math.max(140, frameDuration * 2));
       }
